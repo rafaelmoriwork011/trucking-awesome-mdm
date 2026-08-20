@@ -1,0 +1,4 @@
+CREATE TABLE filiais (
+    id SERIAL PRIMARY KEY NOT NULL,
+    sigla VARCHAR(3) NOT NULL UNIQUE
+);

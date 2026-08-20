@@ -1,0 +1,4 @@
+CREATE TABLE cargos (
+    id SERIAL PRIMARY KEY NOT NULL,
+    descricao VARCHAR(30) NOT NULL UNIQUE
+);
