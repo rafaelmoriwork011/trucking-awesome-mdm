@@ -1,4 +1,4 @@
-package com.truckingawesome.mdm.mapper;
+package com.truckingawesome.mdm.mapper.response;
 
 import com.truckingawesome.mdm.dto.response.ErrorResponseDto;
 import jakarta.persistence.EntityNotFoundException;

@@ -22,7 +22,11 @@ public class Funcionario {
     @JoinColumn(name = "pessoa_id", nullable = false, unique = true)
     private Pessoa pessoa;
 
-    @OneToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "cargo_id", nullable = false)
     private Cargo cargo;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "filial_id", nullable = false)
+    private Filial filial;
 }

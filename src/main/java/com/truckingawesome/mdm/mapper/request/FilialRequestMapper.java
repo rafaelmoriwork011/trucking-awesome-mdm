@@ -1,4 +1,4 @@
-package com.truckingawesome.mdm.mapper;
+package com.truckingawesome.mdm.mapper.request;
 
 import com.truckingawesome.mdm.domain.Filial;
 import com.truckingawesome.mdm.dto.request.FilialRequestDto;

@@ -1,4 +1,4 @@
-package com.truckingawesome.mdm.mapper;
+package com.truckingawesome.mdm.mapper.response;
 
 import com.truckingawesome.mdm.domain.Filial;
 import com.truckingawesome.mdm.dto.response.FilialResponseDto;

@@ -3,8 +3,8 @@ package com.truckingawesome.mdm.service;
 import com.truckingawesome.mdm.dto.request.CargoRequestDto;
 import com.truckingawesome.mdm.dto.response.CargoResponseDto;
 import com.truckingawesome.mdm.dto.response.DataListResponseDto;
-import com.truckingawesome.mdm.mapper.CargoRequestMapper;
-import com.truckingawesome.mdm.mapper.CargoResponseMapper;
+import com.truckingawesome.mdm.mapper.request.CargoRequestMapper;
+import com.truckingawesome.mdm.mapper.response.CargoResponseMapper;
 import com.truckingawesome.mdm.repository.CargoRepository;
 import com.truckingawesome.mdm.repository.FuncionarioRepository;
 import jakarta.persistence.EntityNotFoundException;
@@ -51,6 +51,7 @@ public class CargoService {
 
     @Transactional
     public void save(@Valid CargoRequestDto dto) {
+        dto.setId(null);
         this.cargoRepository.findOneByDescricao(dto.getDescricao()).ifPresent(cargo -> {
             throw new ResponseStatusException(HttpStatus.UNPROCESSABLE_ENTITY, "Já existe um cargo " + dto.getDescricao() + " cadastrado.");
         });

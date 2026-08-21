@@ -3,7 +3,7 @@ package com.truckingawesome.mdm.exception;
 import com.truckingawesome.mdm.dto.response.ErrorResponseDto;
 import com.truckingawesome.mdm.dto.response.FieldErrorDto;
 import com.truckingawesome.mdm.helper.ValidationExceptionHelper;
-import com.truckingawesome.mdm.mapper.ErrorResponseMapper;
+import com.truckingawesome.mdm.mapper.response.ErrorResponseMapper;
 import jakarta.persistence.EntityNotFoundException;
 import jakarta.servlet.http.HttpServletRequest;
 import lombok.RequiredArgsConstructor;

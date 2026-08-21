@@ -3,8 +3,8 @@ package com.truckingawesome.mdm.service;
 import com.truckingawesome.mdm.dto.request.FilialRequestDto;
 import com.truckingawesome.mdm.dto.response.DataListResponseDto;
 import com.truckingawesome.mdm.dto.response.FilialResponseDto;
-import com.truckingawesome.mdm.mapper.FilialRequestMapper;
-import com.truckingawesome.mdm.mapper.FilialResponseMapper;
+import com.truckingawesome.mdm.mapper.request.FilialRequestMapper;
+import com.truckingawesome.mdm.mapper.response.FilialResponseMapper;
 import com.truckingawesome.mdm.repository.FilialRepository;
 import jakarta.persistence.EntityNotFoundException;
 import jakarta.transaction.Transactional;
@@ -24,6 +24,7 @@ public class FilialService {
 
     @Transactional
     public void save(@Valid FilialRequestDto dto) {
+        dto.setId(null);
         this.filialRepository.findOneBySigla(dto.getSigla()).ifPresent(filial -> {
             throw new ResponseStatusException(HttpStatus.UNPROCESSABLE_ENTITY, "Já existe uma filial " + dto.getSigla() + " cadastrada.");
         });
