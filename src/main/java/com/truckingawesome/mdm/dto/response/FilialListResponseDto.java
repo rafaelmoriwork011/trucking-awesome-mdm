@@ -1,5 +1,6 @@
 package com.truckingawesome.mdm.dto.response;
 
+import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 import lombok.*;
 
 import java.util.List;
@@ -9,6 +10,7 @@ import java.util.List;
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
+@JsonPropertyOrder({"id"})
 public class FilialListResponseDto {
     private List<FilialResponseDto> filiais;
 }

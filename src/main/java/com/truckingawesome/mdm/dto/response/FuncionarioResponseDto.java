@@ -1,5 +1,7 @@
 package com.truckingawesome.mdm.dto.response;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 import com.fasterxml.jackson.annotation.JsonUnwrapped;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -10,13 +12,13 @@ import lombok.Setter;
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
+@JsonPropertyOrder({"id"})
 public class FuncionarioResponseDto {
 
+    @JsonIgnoreProperties("id")
     @JsonUnwrapped
-    PessoaResponseDto pessoarResponseDto;
-
+    PessoaResponseDto pessoaResponseDto;
     private Integer id;
-
     private Integer cargoId;
 
     private Integer filialId;
