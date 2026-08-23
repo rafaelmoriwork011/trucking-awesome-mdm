@@ -24,7 +24,6 @@ public class FilialService {
 
     @Transactional
     public void save(@Valid FilialRequestDto dto) {
-        dto.setId(null);
         this.filialRepository.findOneBySigla(dto.getSigla()).ifPresent(filial -> {
             throw new ResponseStatusException(HttpStatus.UNPROCESSABLE_ENTITY, "Já existe uma filial " + dto.getSigla() + " cadastrada.");
         });
@@ -33,8 +32,8 @@ public class FilialService {
     }
 
     public void update(Integer id, @Valid FilialRequestDto dto) {
-        var filial = this.filialRepository.findById(id).orElseThrow(() -> new EntityNotFoundException("Filial com identificador " + id + " não encontrado"));
         dto.setId(id);
+        var filial = this.filialRepository.findById(id).orElseThrow(() -> new EntityNotFoundException("Filial com identificador " + id + " não encontrado"));
 
         this.filialRepository.findBySiglaAndIdNot(dto.getSigla(), dto.getId()).ifPresent(filialSiglaUsed -> {
             throw new ResponseStatusException(HttpStatus.UNPROCESSABLE_ENTITY, "Já existe uma filial " + dto.getSigla() + " cadastrada.");

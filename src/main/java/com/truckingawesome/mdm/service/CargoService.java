@@ -51,7 +51,6 @@ public class CargoService {
 
     @Transactional
     public void save(@Valid CargoRequestDto dto) {
-        dto.setId(null);
         this.cargoRepository.findOneByDescricao(dto.getDescricao()).ifPresent(cargo -> {
             throw new ResponseStatusException(HttpStatus.UNPROCESSABLE_ENTITY, "Já existe um cargo " + dto.getDescricao() + " cadastrado.");
         });

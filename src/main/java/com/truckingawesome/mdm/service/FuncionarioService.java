@@ -1,6 +1,7 @@
 package com.truckingawesome.mdm.service;
 
 import com.truckingawesome.mdm.dto.request.FuncionarioRequestDto;
+import com.truckingawesome.mdm.dto.response.DataListResponseDto;
 import com.truckingawesome.mdm.dto.response.FuncionarioResponseDto;
 import com.truckingawesome.mdm.mapper.request.FuncionarioRequestMapper;
 import com.truckingawesome.mdm.mapper.request.PessoaRequestMapper;
@@ -18,8 +19,6 @@ import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
 
-import java.util.List;
-
 @Service
 @RequiredArgsConstructor
 public class FuncionarioService {
@@ -35,9 +34,6 @@ public class FuncionarioService {
 
     @Transactional
     public void save(@Valid FuncionarioRequestDto funcionarioRequestDto) {
-        funcionarioRequestDto.setId(null);
-        funcionarioRequestDto.getPessoaRequestDto().setId(null);
-
         var pessoaRequestDto = funcionarioRequestDto.getPessoaRequestDto();
 
         this.pessoaRepository.findOneByCpfCnpj(pessoaRequestDto.getCpfCnpj()).ifPresent(pessoa -> {
@@ -84,9 +80,9 @@ public class FuncionarioService {
         return funcionarioResponseDto;
     }
 
-    public List<FuncionarioResponseDto> findAll() {
+    public DataListResponseDto<FuncionarioResponseDto> findAll() {
         var funcionarios = this.funcionarioRepository.findAll();
         var funcionarioResponseDtos = this.funcionarioResponseMapper.toDTOList(funcionarios);
-        return funcionarioResponseDtos;
+        return DataListResponseDto.of(funcionarioResponseDtos);
     }
 }

@@ -11,5 +11,6 @@ public interface FuncionarioRequestMapper {
     @Mapping(target = "pessoa", source = "pessoaRequestDto")
     @Mapping(target = "cargo.id", source = "cargoId")
     @Mapping(target = "filial.id", source = "filialId")
+    @Mapping(target = "id", ignore = true)
     Funcionario toEntity(FuncionarioRequestDto dto);
 }

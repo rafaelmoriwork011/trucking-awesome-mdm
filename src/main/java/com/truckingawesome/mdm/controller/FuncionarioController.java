@@ -1,14 +1,13 @@
 package com.truckingawesome.mdm.controller;
 
 import com.truckingawesome.mdm.dto.request.FuncionarioRequestDto;
+import com.truckingawesome.mdm.dto.response.DataListResponseDto;
 import com.truckingawesome.mdm.dto.response.FuncionarioResponseDto;
 import com.truckingawesome.mdm.service.FuncionarioService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-
-import java.util.List;
 
 @RestController
 @RequestMapping("/funcionarios")
@@ -18,7 +17,7 @@ public class FuncionarioController {
     private final FuncionarioService funcionarioService;
 
     @GetMapping
-    public ResponseEntity<List<FuncionarioResponseDto>> findAll() {
+    public ResponseEntity<DataListResponseDto<FuncionarioResponseDto>> findAll() {
         var dtos = funcionarioService.findAll();
         return ResponseEntity.ok(dtos);
     }
