@@ -59,10 +59,7 @@ public class FuncionarioService {
             throw new ResponseStatusException(HttpStatus.UNPROCESSABLE_ENTITY, "Já existe uma pessoa com CPF/CNPJ " + pessoaRequestDto.getCpfCnpj() + " cadastrada.");
         });
 
-        pessoaRequestDto.setId(funcionario.getPessoa().getId());
-        funcionarioRequestDto.setId(id);
-
-        funcionario = this.funcionarioRequestMapper.toEntity(funcionarioRequestDto);
+        this.funcionarioRequestMapper.updateEntityFromDto(funcionarioRequestDto, funcionario);
 
         this.funcionarioRepository.save(funcionario);
     }

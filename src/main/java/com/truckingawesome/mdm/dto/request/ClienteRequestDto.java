@@ -10,14 +10,11 @@ import lombok.*;
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
-public class FuncionarioRequestDto {
+public class ClienteRequestDto {
 
     @Valid
     @JsonUnwrapped
     PessoaRequestDto pessoaRequestDto;
-
-    @NotNull(message = "O ID do cargo é obrigatório")
-    private Integer cargoId;
 
     @NotNull(message = "O ID do cargo é obrigatório")
     private Integer filialId;

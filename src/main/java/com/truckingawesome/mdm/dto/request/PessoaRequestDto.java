@@ -10,7 +10,6 @@ import lombok.*;
 @NoArgsConstructor
 @Builder
 public class PessoaRequestDto {
-    private Integer id;
 
     @NotBlank(message = "Nome completo é obrigatório")
     @Size(max = 30, message = "Nome deve ter no máximo 50 caracteres")
