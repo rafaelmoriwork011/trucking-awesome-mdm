@@ -44,7 +44,7 @@ public class ClienteService {
     public void update(Integer id, @Valid ClienteRequestDto clienteRequestDto) {
 
         var cliente = this.clienteRepository.findById(id).orElseThrow(() -> new EntityNotFoundException("Cliente com identificador " + id + " não encontrado"));
-        this.filialRepository.findById(clienteRequestDto.getFilialId()).orElseThrow(() -> new EntityNotFoundException("Filial com identificador " + clienteRequestDto.getFilialId() + " não encontrado"));
+        var filial = this.filialRepository.findById(clienteRequestDto.getFilialId()).orElseThrow(() -> new EntityNotFoundException("Filial com identificador " + clienteRequestDto.getFilialId() + " não encontrado"));
         var pessoaRequestDto = clienteRequestDto.getPessoaRequestDto();
         this.pessoaRepository.findOneByCpfCnpj(pessoaRequestDto.getCpfCnpj()).ifPresent(pessoa -> {
             if (!cliente.getPessoa().getId().equals(pessoa.getId())) {
@@ -52,6 +52,7 @@ public class ClienteService {
             }
         });
 
+        cliente.setFilial(filial);
         this.clienteRequestMapper.updateEntityFromDto(clienteRequestDto, cliente);
 
         this.clienteRepository.save(cliente);

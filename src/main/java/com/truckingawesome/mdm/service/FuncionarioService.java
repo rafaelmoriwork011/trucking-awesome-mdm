@@ -52,8 +52,8 @@ public class FuncionarioService {
     public void update(Integer id, @Valid FuncionarioRequestDto funcionarioRequestDto) {
 
         var funcionario = this.funcionarioRepository.findById(id).orElseThrow(() -> new EntityNotFoundException("Funcionario com identificador " + id + " não encontrado"));
-        this.cargoRepository.findById(funcionarioRequestDto.getCargoId()).orElseThrow(() -> new EntityNotFoundException("Cargo com identificador " + funcionarioRequestDto.getCargoId() + " não encontrado"));
-        this.filialRepository.findById(funcionarioRequestDto.getFilialId()).orElseThrow(() -> new EntityNotFoundException("Filial com identificador " + funcionarioRequestDto.getFilialId() + " não encontrado"));
+        var cargo = this.cargoRepository.findById(funcionarioRequestDto.getCargoId()).orElseThrow(() -> new EntityNotFoundException("Cargo com identificador " + funcionarioRequestDto.getCargoId() + " não encontrado"));
+        var filial = this.filialRepository.findById(funcionarioRequestDto.getFilialId()).orElseThrow(() -> new EntityNotFoundException("Filial com identificador " + funcionarioRequestDto.getFilialId() + " não encontrado"));
         var pessoaRequestDto = funcionarioRequestDto.getPessoaRequestDto();
         this.pessoaRepository.findOneByCpfCnpj(pessoaRequestDto.getCpfCnpj()).ifPresent(pessoa -> {
             if (!funcionario.getPessoa().getId().equals(pessoa.getId())) {
@@ -61,6 +61,8 @@ public class FuncionarioService {
             }
         });
 
+        funcionario.setCargo(cargo);
+        funcionario.setFilial(filial);
         this.funcionarioRequestMapper.updateEntityFromDto(funcionarioRequestDto, funcionario);
 
         this.funcionarioRepository.save(funcionario);

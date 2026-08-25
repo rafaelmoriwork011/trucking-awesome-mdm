@@ -16,6 +16,6 @@ public class ClienteRequestDto {
     @JsonUnwrapped
     PessoaRequestDto pessoaRequestDto;
 
-    @NotNull(message = "O ID do cargo é obrigatório")
+    @NotNull(message = "O ID da filial é obrigatório")
     private Integer filialId;
 }
