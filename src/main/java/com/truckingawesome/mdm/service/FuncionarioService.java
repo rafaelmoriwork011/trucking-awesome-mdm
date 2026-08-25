@@ -56,7 +56,9 @@ public class FuncionarioService {
         this.filialRepository.findById(funcionarioRequestDto.getFilialId()).orElseThrow(() -> new EntityNotFoundException("Filial com identificador " + funcionarioRequestDto.getFilialId() + " não encontrado"));
         var pessoaRequestDto = funcionarioRequestDto.getPessoaRequestDto();
         this.pessoaRepository.findOneByCpfCnpj(pessoaRequestDto.getCpfCnpj()).ifPresent(pessoa -> {
-            throw new ResponseStatusException(HttpStatus.UNPROCESSABLE_ENTITY, "Já existe uma pessoa com CPF/CNPJ " + pessoaRequestDto.getCpfCnpj() + " cadastrada.");
+            if (!funcionario.getPessoa().getId().equals(pessoa.getId())) {
+                throw new ResponseStatusException(HttpStatus.UNPROCESSABLE_ENTITY, "Já existe uma pessoa com CPF/CNPJ " + pessoaRequestDto.getCpfCnpj() + " cadastrada.");
+            }
         });
 
         this.funcionarioRequestMapper.updateEntityFromDto(funcionarioRequestDto, funcionario);

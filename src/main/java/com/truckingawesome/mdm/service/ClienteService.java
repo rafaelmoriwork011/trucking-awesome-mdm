@@ -47,7 +47,9 @@ public class ClienteService {
         this.filialRepository.findById(clienteRequestDto.getFilialId()).orElseThrow(() -> new EntityNotFoundException("Filial com identificador " + clienteRequestDto.getFilialId() + " não encontrado"));
         var pessoaRequestDto = clienteRequestDto.getPessoaRequestDto();
         this.pessoaRepository.findOneByCpfCnpj(pessoaRequestDto.getCpfCnpj()).ifPresent(pessoa -> {
-            throw new ResponseStatusException(HttpStatus.UNPROCESSABLE_ENTITY, "Já existe uma pessoa com CPF/CNPJ " + pessoaRequestDto.getCpfCnpj() + " cadastrada.");
+            if (!cliente.getPessoa().getId().equals(pessoa.getId())) {
+                throw new ResponseStatusException(HttpStatus.UNPROCESSABLE_ENTITY, "Já existe uma pessoa com CPF/CNPJ " + pessoaRequestDto.getCpfCnpj() + " cadastrada.");
+            }
         });
 
         this.clienteRequestMapper.updateEntityFromDto(clienteRequestDto, cliente);
