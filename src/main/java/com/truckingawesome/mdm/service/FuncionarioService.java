@@ -1,7 +1,6 @@
 package com.truckingawesome.mdm.service;
 
 import com.truckingawesome.mdm.dto.request.FuncionarioRequestDto;
-import com.truckingawesome.mdm.dto.response.DataListResponseDto;
 import com.truckingawesome.mdm.dto.response.FuncionarioResponseDto;
 import com.truckingawesome.mdm.mapper.request.FuncionarioRequestMapper;
 import com.truckingawesome.mdm.mapper.request.PessoaRequestMapper;
@@ -15,6 +14,8 @@ import jakarta.persistence.EntityNotFoundException;
 import jakarta.transaction.Transactional;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
@@ -81,9 +82,8 @@ public class FuncionarioService {
         return funcionarioResponseDto;
     }
 
-    public DataListResponseDto<FuncionarioResponseDto> findAll() {
-        var funcionarios = this.funcionarioRepository.findAll();
-        var funcionarioResponseDtos = this.funcionarioResponseMapper.toDTOList(funcionarios);
-        return DataListResponseDto.of(funcionarioResponseDtos);
+    public Page<FuncionarioResponseDto> findAll(Pageable pageable) {
+        var funcionariosPage = this.funcionarioRepository.findAll(pageable);
+        return funcionariosPage.map(this.funcionarioResponseMapper::toDTO);
     }
 }

@@ -12,6 +12,8 @@ import jakarta.persistence.EntityNotFoundException;
 import jakarta.transaction.Transactional;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
@@ -71,9 +73,8 @@ public class ClienteService {
         return clienteResponseDto;
     }
 
-    public DataListResponseDto<ClienteResponseDto> findAll() {
-        var clientes = this.clienteRepository.findAll();
-        var clienteResponseDtos = this.clienteResponseMapper.toDTOList(clientes);
-        return DataListResponseDto.of(clienteResponseDtos);
+    public Page<ClienteResponseDto> findAll(Pageable pageable) {
+        var clientesPage = this.clienteRepository.findAll(pageable);
+        return clientesPage.map(this.clienteResponseMapper::toDTO);
     }
 }

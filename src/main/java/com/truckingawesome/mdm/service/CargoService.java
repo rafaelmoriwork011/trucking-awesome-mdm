@@ -2,7 +2,6 @@ package com.truckingawesome.mdm.service;
 
 import com.truckingawesome.mdm.dto.request.CargoRequestDto;
 import com.truckingawesome.mdm.dto.response.CargoResponseDto;
-import com.truckingawesome.mdm.dto.response.DataListResponseDto;
 import com.truckingawesome.mdm.mapper.request.CargoRequestMapper;
 import com.truckingawesome.mdm.mapper.response.CargoResponseMapper;
 import com.truckingawesome.mdm.repository.CargoRepository;
@@ -11,6 +10,8 @@ import jakarta.persistence.EntityNotFoundException;
 import jakarta.transaction.Transactional;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
@@ -25,10 +26,9 @@ public class CargoService {
     private final CargoRequestMapper cargoRequestMapper;
 
 
-    public DataListResponseDto<CargoResponseDto> listAll() {
-        var cargos = this.cargoRepository.findAll();
-        var cargosDto = cargoResponseMapper.toDTOList(cargos);
-        return DataListResponseDto.of(cargosDto);
+    public Page<CargoResponseDto> listAll(Pageable pageable) {
+        var cargosPage = this.cargoRepository.findAll(pageable);
+        return cargosPage.map(this.cargoResponseMapper::toDTO);
     }
 
     public CargoResponseDto findById(Integer id) {

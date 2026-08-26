@@ -2,10 +2,12 @@ package com.truckingawesome.mdm.controller;
 
 import com.truckingawesome.mdm.dto.request.CargoRequestDto;
 import com.truckingawesome.mdm.dto.response.CargoResponseDto;
-import com.truckingawesome.mdm.dto.response.DataListResponseDto;
 import com.truckingawesome.mdm.service.CargoService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.web.PageableDefault;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -17,9 +19,9 @@ public class CargoController {
     private final CargoService cargoService;
 
     @GetMapping
-    public ResponseEntity<DataListResponseDto<CargoResponseDto>> listAll() {
-        var response = cargoService.listAll();
-        return ResponseEntity.ok(response);
+    public ResponseEntity<Page<CargoResponseDto>> findAll(@PageableDefault Pageable pageable) {
+        Page<CargoResponseDto> cargos = cargoService.listAll(pageable);
+        return ResponseEntity.ok(cargos);
     }
 
     @GetMapping("/{id}")

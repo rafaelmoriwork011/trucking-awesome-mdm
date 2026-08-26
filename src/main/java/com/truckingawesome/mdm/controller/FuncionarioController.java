@@ -6,6 +6,9 @@ import com.truckingawesome.mdm.dto.response.FuncionarioResponseDto;
 import com.truckingawesome.mdm.service.FuncionarioService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.web.PageableDefault;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -17,8 +20,8 @@ public class FuncionarioController {
     private final FuncionarioService funcionarioService;
 
     @GetMapping
-    public ResponseEntity<DataListResponseDto<FuncionarioResponseDto>> findAll() {
-        var dtos = funcionarioService.findAll();
+    public ResponseEntity<Page<FuncionarioResponseDto>> findAll(@PageableDefault Pageable pageable) {
+        var dtos = funcionarioService.findAll(pageable);
         return ResponseEntity.ok(dtos);
     }
 

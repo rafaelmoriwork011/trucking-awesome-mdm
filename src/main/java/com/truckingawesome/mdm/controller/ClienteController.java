@@ -6,6 +6,9 @@ import com.truckingawesome.mdm.dto.response.DataListResponseDto;
 import com.truckingawesome.mdm.service.ClienteService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.web.PageableDefault;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -16,8 +19,8 @@ public class ClienteController {
     private final ClienteService clienteService;
 
     @GetMapping
-    public ResponseEntity<DataListResponseDto<ClienteResponseDto>> findAll() {
-        var dtos = clienteService.findAll();
+    public ResponseEntity<Page<ClienteResponseDto>> findAll(@PageableDefault Pageable pageable) {
+        var dtos = clienteService.findAll(pageable);
         return ResponseEntity.ok(dtos);
     }
 
