@@ -2,7 +2,6 @@ package com.truckingawesome.mdm.controller;
 
 import com.truckingawesome.mdm.dto.request.ClienteRequestDto;
 import com.truckingawesome.mdm.dto.response.ClienteResponseDto;
-import com.truckingawesome.mdm.dto.response.DataListResponseDto;
 import com.truckingawesome.mdm.service.ClienteService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
@@ -19,7 +18,7 @@ public class ClienteController {
     private final ClienteService clienteService;
 
     @GetMapping
-    public ResponseEntity<Page<ClienteResponseDto>> findAll(@PageableDefault Pageable pageable) {
+    public ResponseEntity<Page<ClienteResponseDto>> findAll(@PageableDefault(page = 0, size = 10) Pageable pageable) {
         var dtos = clienteService.findAll(pageable);
         return ResponseEntity.ok(dtos);
     }

@@ -20,7 +20,7 @@ public class FuncionarioController {
     private final FuncionarioService funcionarioService;
 
     @GetMapping
-    public ResponseEntity<Page<FuncionarioResponseDto>> findAll(@PageableDefault Pageable pageable) {
+    public ResponseEntity<Page<FuncionarioResponseDto>> findAll(@PageableDefault(page = 0, size = 10) Pageable pageable) {
         var dtos = funcionarioService.findAll(pageable);
         return ResponseEntity.ok(dtos);
     }

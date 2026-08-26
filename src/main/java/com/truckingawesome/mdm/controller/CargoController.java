@@ -19,7 +19,7 @@ public class CargoController {
     private final CargoService cargoService;
 
     @GetMapping
-    public ResponseEntity<Page<CargoResponseDto>> findAll(@PageableDefault Pageable pageable) {
+    public ResponseEntity<Page<CargoResponseDto>> findAll(@PageableDefault(page = 0, size = 10) Pageable pageable) {
         Page<CargoResponseDto> cargos = cargoService.listAll(pageable);
         return ResponseEntity.ok(cargos);
     }
