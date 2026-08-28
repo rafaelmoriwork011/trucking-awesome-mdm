@@ -7,6 +7,7 @@ import com.truckingawesome.mdm.mapper.response.ErrorResponseMapper;
 import jakarta.persistence.EntityNotFoundException;
 import jakarta.servlet.http.HttpServletRequest;
 import lombok.RequiredArgsConstructor;
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.http.converter.HttpMessageNotReadableException;
@@ -94,6 +95,16 @@ public class GlobalExceptionHandler {
     public ResponseEntity<ErrorResponseDto> handleNotFound(NoResourceFoundException ex) {
         var messages = new ArrayList<String>();
         messages.add("Recurso ou rota não encontrada para a URL solicitada");
+
+        ErrorResponseDto dto = ErrorResponseDto.builder().messages(messages).build();
+
+        return ResponseEntity.status(HttpStatus.NOT_FOUND).body(dto);
+    }
+
+    @ExceptionHandler(DataIntegrityViolationException.class)
+    public ResponseEntity<ErrorResponseDto> handleDataIntegrityViolation(DataIntegrityViolationException ex) {
+        var messages = new ArrayList<String>();
+        messages.add("Registro está em uso e não pode ser excluído");
 
         ErrorResponseDto dto = ErrorResponseDto.builder().messages(messages).build();
 
