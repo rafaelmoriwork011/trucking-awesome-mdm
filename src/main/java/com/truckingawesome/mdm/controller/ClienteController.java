@@ -11,28 +11,19 @@ import org.springframework.data.web.PageableDefault;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.UUID;
+
 @RestController
 @RequestMapping("/clientes")
 @RequiredArgsConstructor
 public class ClienteController {
+
     private final ClienteService clienteService;
 
     @GetMapping
     public ResponseEntity<Page<ClienteResponseDto>> findAll(@PageableDefault(page = 0, size = 10) Pageable pageable) {
         var dtos = clienteService.findAll(pageable);
         return ResponseEntity.ok(dtos);
-    }
-
-    @GetMapping("/{id}")
-    public ResponseEntity<ClienteResponseDto> findById(@PathVariable Integer id) {
-        var dto = clienteService.findById(id);
-        return ResponseEntity.ok(dto);
-    }
-
-    @DeleteMapping("/{id}")
-    public ResponseEntity<Void> deleteById(@PathVariable Integer id) {
-        clienteService.deleteById(id);
-        return ResponseEntity.ok().build();
     }
 
     @PostMapping
@@ -42,8 +33,21 @@ public class ClienteController {
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<Void> update(@PathVariable Integer id, @Valid @RequestBody ClienteRequestDto dto) {
+    public ResponseEntity<Void> update(@PathVariable UUID id, @Valid @RequestBody ClienteRequestDto dto) {
         clienteService.update(id, dto);
         return ResponseEntity.ok().build();
     }
+
+    @GetMapping("/{id}")
+    public ResponseEntity<ClienteResponseDto> findById(@PathVariable UUID id) {
+        var dto = clienteService.findById(id);
+        return ResponseEntity.ok(dto);
+    }
+
+    @DeleteMapping("/{id}")
+    public ResponseEntity<Void> deleteById(@PathVariable UUID id) {
+        clienteService.deleteById(id);
+        return ResponseEntity.ok().build();
+    }
+
 }

@@ -1,7 +1,6 @@
 package com.truckingawesome.mdm.controller;
 
 import com.truckingawesome.mdm.dto.request.FuncionarioRequestDto;
-import com.truckingawesome.mdm.dto.response.DataListResponseDto;
 import com.truckingawesome.mdm.dto.response.FuncionarioResponseDto;
 import com.truckingawesome.mdm.service.FuncionarioService;
 import jakarta.validation.Valid;
@@ -11,6 +10,8 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.web.PageableDefault;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.UUID;
 
 @RestController
 @RequestMapping("/funcionarios")
@@ -25,18 +26,6 @@ public class FuncionarioController {
         return ResponseEntity.ok(dtos);
     }
 
-    @GetMapping("/{id}")
-    public ResponseEntity<FuncionarioResponseDto> findById(@PathVariable Integer id) {
-        var dto = funcionarioService.findById(id);
-        return ResponseEntity.ok(dto);
-    }
-
-    @DeleteMapping("/{id}")
-    public ResponseEntity<Void> deleteById(@PathVariable Integer id) {
-        funcionarioService.deleteById(id);
-        return ResponseEntity.ok().build();
-    }
-
     @PostMapping
     public ResponseEntity<Void> save(@Valid @RequestBody FuncionarioRequestDto dto) {
         funcionarioService.save(dto);
@@ -44,8 +33,21 @@ public class FuncionarioController {
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<Void> update(@PathVariable Integer id, @Valid @RequestBody FuncionarioRequestDto dto) {
+    public ResponseEntity<Void> update(@PathVariable UUID id, @Valid @RequestBody FuncionarioRequestDto dto) {
         funcionarioService.update(id, dto);
         return ResponseEntity.ok().build();
     }
+
+    @GetMapping("/{id}")
+    public ResponseEntity<FuncionarioResponseDto> findById(@PathVariable UUID id) {
+        var dto = funcionarioService.findById(id);
+        return ResponseEntity.ok(dto);
+    }
+
+    @DeleteMapping("/{id}")
+    public ResponseEntity<Void> deleteById(@PathVariable UUID id) {
+        funcionarioService.deleteById(id);
+        return ResponseEntity.ok().build();
+    }
+
 }

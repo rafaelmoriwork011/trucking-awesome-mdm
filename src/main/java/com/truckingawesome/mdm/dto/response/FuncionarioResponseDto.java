@@ -8,6 +8,8 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import java.util.UUID;
+
 @Getter
 @Setter
 @AllArgsConstructor
@@ -18,8 +20,9 @@ public class FuncionarioResponseDto {
     @JsonIgnoreProperties("id")
     @JsonUnwrapped
     PessoaResponseDto pessoaResponseDto;
-    private Integer id;
-    private Integer cargoId;
+    private UUID id;
 
-    private Integer filialId;
+    private UUID cargoId;
+
+    private UUID filialId;
 }

@@ -16,6 +16,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
 
+import java.util.UUID;
+
 @Service
 @RequiredArgsConstructor
 public class CargoService {
@@ -31,13 +33,13 @@ public class CargoService {
         return cargosPage.map(this.cargoResponseMapper::toDTO);
     }
 
-    public CargoResponseDto findById(Integer id) {
+    public CargoResponseDto findById(UUID id) {
         var cargo = this.cargoRepository.findById(id).orElseThrow(() -> new EntityNotFoundException("Cargo com identificador " + id + " não encontrado"));
         return cargoResponseMapper.toDTO(cargo);
     }
 
     @Transactional
-    public void deleteById(Integer id) {
+    public void deleteById(UUID id) {
         var cargo = this.cargoRepository.findById(id).orElseThrow(() -> new EntityNotFoundException("Cargo com identificador " + id + " não encontrado"));
 
         var cargoInUseByFuncionario = funcionarioRepository.existsByCargoId(cargo.getId());
@@ -59,7 +61,7 @@ public class CargoService {
     }
 
     @Transactional
-    public void update(Integer id, @Valid CargoRequestDto dto) {
+    public void update(UUID id, @Valid CargoRequestDto dto) {
         dto.setId(id);
         var cargo = this.cargoRepository.findById(id).orElseThrow(() -> new EntityNotFoundException("Cargo com identificador " + id + " não encontrado"));
 

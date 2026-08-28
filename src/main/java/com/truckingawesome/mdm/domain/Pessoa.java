@@ -6,6 +6,8 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import java.util.UUID;
+
 @Entity
 @Table(name = "pessoas")
 @Getter
@@ -14,8 +16,8 @@ import lombok.Setter;
 @AllArgsConstructor
 public class Pessoa {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer id;
+    @GeneratedValue(strategy = GenerationType.UUID)
+    private UUID id;
 
     @Column(length = 50, nullable = false)
     private String nomeCompleto;

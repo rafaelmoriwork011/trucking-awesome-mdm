@@ -20,6 +20,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
 
+import java.util.UUID;
+
 @Service
 @RequiredArgsConstructor
 public class FuncionarioService {
@@ -50,7 +52,7 @@ public class FuncionarioService {
     }
 
     @Transactional
-    public void update(Integer id, @Valid FuncionarioRequestDto funcionarioRequestDto) {
+    public void update(UUID id, @Valid FuncionarioRequestDto funcionarioRequestDto) {
 
         var funcionario = this.funcionarioRepository.findById(id).orElseThrow(() -> new EntityNotFoundException("Funcionario com identificador " + id + " não encontrado"));
         var cargo = this.cargoRepository.findById(funcionarioRequestDto.getCargoId()).orElseThrow(() -> new EntityNotFoundException("Cargo com identificador " + funcionarioRequestDto.getCargoId() + " não encontrado"));
@@ -70,12 +72,12 @@ public class FuncionarioService {
     }
 
     @Transactional
-    public void deleteById(Integer id) {
+    public void deleteById(UUID id) {
         var funcionario = this.funcionarioRepository.findById(id).orElseThrow(() -> new EntityNotFoundException("Funcionario com identificador " + id + " não encontrado"));
         this.funcionarioRepository.delete(funcionario);
     }
 
-    public FuncionarioResponseDto findById(Integer id) {
+    public FuncionarioResponseDto findById(UUID id) {
         var funcionario = this.funcionarioRepository.findById(id).orElseThrow(() -> new EntityNotFoundException("Funcionario com identificador " + id + " não encontrado"));
         var funcionarioResponseDto = this.funcionarioResponseMapper.toDTO(funcionario);
 

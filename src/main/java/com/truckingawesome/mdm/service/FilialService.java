@@ -14,6 +14,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
 
+import java.util.UUID;
+
 @Service
 @RequiredArgsConstructor
 public class FilialService {
@@ -31,7 +33,7 @@ public class FilialService {
         this.filialRepository.save(filial);
     }
 
-    public void update(Integer id, @Valid FilialRequestDto dto) {
+    public void update(UUID id, @Valid FilialRequestDto dto) {
         dto.setId(id);
         var filial = this.filialRepository.findById(id).orElseThrow(() -> new EntityNotFoundException("Filial com identificador " + id + " não encontrado"));
 
@@ -53,13 +55,13 @@ public class FilialService {
         return DataListResponseDto.of(filiaisResponseDto);
     }
 
-    public FilialResponseDto findById(Integer id) {
+    public FilialResponseDto findById(UUID id) {
         var filial = this.filialRepository.findById(id).orElseThrow(() -> new EntityNotFoundException("Filial com identificador " + id + " não encontrado"));
         return filialResponseMapper.toDTO(filial);
     }
 
     @Transactional
-    public void deleteById(Integer id) {
+    public void deleteById(UUID id) {
         var filial = this.filialRepository.findById(id).orElseThrow(() -> new EntityNotFoundException("Filial com identificador " + id + " não encontrado"));
         this.filialRepository.delete(filial);
     }

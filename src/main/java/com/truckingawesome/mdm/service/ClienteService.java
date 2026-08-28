@@ -18,6 +18,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
 
+import java.util.UUID;
+
 @Service
 @RequiredArgsConstructor
 public class ClienteService {
@@ -43,7 +45,7 @@ public class ClienteService {
     }
 
     @Transactional
-    public void update(Integer id, @Valid ClienteRequestDto clienteRequestDto) {
+    public void update(UUID id, @Valid ClienteRequestDto clienteRequestDto) {
 
         var cliente = this.clienteRepository.findById(id).orElseThrow(() -> new EntityNotFoundException("Cliente com identificador " + id + " não encontrado"));
         var filial = this.filialRepository.findById(clienteRequestDto.getFilialId()).orElseThrow(() -> new EntityNotFoundException("Filial com identificador " + clienteRequestDto.getFilialId() + " não encontrado"));
@@ -61,12 +63,12 @@ public class ClienteService {
     }
 
     @Transactional
-    public void deleteById(Integer id) {
+    public void deleteById(UUID id) {
         var cliente = this.clienteRepository.findById(id).orElseThrow(() -> new EntityNotFoundException("Cliente com identificador " + id + " não encontrado"));
         this.clienteRepository.delete(cliente);
     }
 
-    public ClienteResponseDto findById(Integer id) {
+    public ClienteResponseDto findById(UUID id) {
         var cliente = this.clienteRepository.findById(id).orElseThrow(() -> new EntityNotFoundException("Cliente com identificador " + id + " não encontrado"));
         var clienteResponseDto = this.clienteResponseMapper.toDTO(cliente);
 

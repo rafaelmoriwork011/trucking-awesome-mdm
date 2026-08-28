@@ -11,6 +11,8 @@ import org.springframework.data.web.PageableDefault;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.UUID;
+
 @RestController
 @RequestMapping("/cargos")
 @RequiredArgsConstructor
@@ -24,18 +26,6 @@ public class CargoController {
         return ResponseEntity.ok(cargos);
     }
 
-    @GetMapping("/{id}")
-    public ResponseEntity<CargoResponseDto> findById(@PathVariable Integer id) {
-        CargoResponseDto dto = cargoService.findById(id);
-        return ResponseEntity.ok(dto);
-    }
-
-    @DeleteMapping("/{id}")
-    public ResponseEntity<Void> deleteById(@PathVariable Integer id) {
-        cargoService.deleteById(id);
-        return ResponseEntity.ok().build();
-    }
-
     @PostMapping
     public ResponseEntity<Void> save(@Valid @RequestBody CargoRequestDto dto) {
         cargoService.save(dto);
@@ -43,8 +33,20 @@ public class CargoController {
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<Void> update(@PathVariable Integer id, @Valid @RequestBody CargoRequestDto dto) {
+    public ResponseEntity<Void> update(@PathVariable UUID id, @Valid @RequestBody CargoRequestDto dto) {
         cargoService.update(id, dto);
+        return ResponseEntity.ok().build();
+    }
+
+    @GetMapping("/{id}")
+    public ResponseEntity<CargoResponseDto> findById(@PathVariable UUID id) {
+        CargoResponseDto dto = cargoService.findById(id);
+        return ResponseEntity.ok(dto);
+    }
+
+    @DeleteMapping("/{id}")
+    public ResponseEntity<Void> deleteById(@PathVariable UUID id) {
+        cargoService.deleteById(id);
         return ResponseEntity.ok().build();
     }
 

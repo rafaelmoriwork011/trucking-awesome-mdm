@@ -5,6 +5,8 @@ import jakarta.validation.Valid;
 import jakarta.validation.constraints.NotNull;
 import lombok.*;
 
+import java.util.UUID;
+
 @Getter
 @Setter
 @AllArgsConstructor
@@ -17,5 +19,5 @@ public class ClienteRequestDto {
     PessoaRequestDto pessoaRequestDto;
 
     @NotNull(message = "O ID da filial é obrigatório")
-    private Integer filialId;
+    private UUID filialId;
 }

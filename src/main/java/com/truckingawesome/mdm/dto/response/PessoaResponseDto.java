@@ -6,6 +6,8 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import java.util.UUID;
+
 @Getter
 @Setter
 @AllArgsConstructor
@@ -13,7 +15,7 @@ import lombok.Setter;
 @JsonPropertyOrder({"id"})
 public class PessoaResponseDto {
 
-    private Integer id;
+    private UUID id;
 
     private String nomeCompleto;
 
