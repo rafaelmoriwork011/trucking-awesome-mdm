@@ -98,17 +98,17 @@ public class GlobalExceptionHandler {
 
         ErrorResponseDto dto = ErrorResponseDto.builder().messages(messages).build();
 
-        return ResponseEntity.status(HttpStatus.NOT_FOUND).body(dto);
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(dto);
     }
 
     @ExceptionHandler(DataIntegrityViolationException.class)
     public ResponseEntity<ErrorResponseDto> handleDataIntegrityViolation(DataIntegrityViolationException ex) {
         var messages = new ArrayList<String>();
-        messages.add("Registro está em uso e não pode ser excluído");
+        messages.add("Erro de integridade no banco de dados, verifique se não está alterando uma informação em uso ou inserindo um registro duplicado");
 
         ErrorResponseDto dto = ErrorResponseDto.builder().messages(messages).build();
 
-        return ResponseEntity.status(HttpStatus.NOT_FOUND).body(dto);
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(dto);
     }
 
 }

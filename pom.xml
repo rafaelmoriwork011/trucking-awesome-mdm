@@ -124,7 +124,6 @@
                         <path>
                             <groupId>org.projectlombok</groupId>
                             <artifactId>lombok</artifactId>
-                            <!-- Remova a tag <version> aqui! O gerencimento de dependência do Spring Boot já cuida disso. -->
                         </path>
                         <path>
                             <groupId>org.mapstruct</groupId>
