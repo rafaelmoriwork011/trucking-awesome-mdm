@@ -1,7 +1,7 @@
 package com.truckingawesome.mdm.exception;
 
 import com.truckingawesome.mdm.dto.response.ErrorResponseDto;
-import com.truckingawesome.mdm.dto.response.FieldErrorDto;
+import com.truckingawesome.mdm.dto.response.FieldErrorResponseDto;
 import com.truckingawesome.mdm.helper.ValidationExceptionHelper;
 import com.truckingawesome.mdm.mapper.response.ErrorResponseMapper;
 import jakarta.persistence.EntityNotFoundException;
@@ -38,7 +38,7 @@ public class GlobalExceptionHandler {
 
     @ExceptionHandler(MethodArgumentNotValidException.class)
     public ResponseEntity<ErrorResponseDto> handleMethodArgumentNotValid(MethodArgumentNotValidException ex, HttpServletRequest request) {
-        List<FieldErrorDto> fieldErrors = validationExceptionHelper.toFieldDTOList(ex.getBindingResult().getFieldErrors());
+        List<FieldErrorResponseDto> fieldErrors = validationExceptionHelper.toFieldDTOList(ex.getBindingResult().getFieldErrors());
 
         var messages = new ArrayList<String>();
         messages.add("Um ou mais erros de validação encontrados.");

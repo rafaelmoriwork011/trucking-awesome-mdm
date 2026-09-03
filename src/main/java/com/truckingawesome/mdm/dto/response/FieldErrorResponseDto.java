@@ -9,7 +9,7 @@ import java.util.List;
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
-public class FieldErrorDto {
+public class FieldErrorResponseDto {
     private String field;
     private List<String> message;
 }

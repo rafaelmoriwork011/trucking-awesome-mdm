@@ -1,6 +1,6 @@
 package com.truckingawesome.mdm.helper;
 
-import com.truckingawesome.mdm.dto.response.FieldErrorDto;
+import com.truckingawesome.mdm.dto.response.FieldErrorResponseDto;
 import org.springframework.stereotype.Component;
 import org.springframework.validation.FieldError;
 
@@ -10,7 +10,7 @@ import java.util.stream.Collectors;
 @Component
 public class ValidationExceptionHelper {
 
-    public List<FieldErrorDto> toFieldDTOList(List<FieldError> fieldErrors) {
+    public List<FieldErrorResponseDto> toFieldDTOList(List<FieldError> fieldErrors) {
         if (fieldErrors == null || fieldErrors.isEmpty()) {
             return List.of();
         }
@@ -18,7 +18,7 @@ public class ValidationExceptionHelper {
         var mapping = Collectors.mapping(FieldError::getDefaultMessage, Collectors.toList());
         var grouping = Collectors.groupingBy(FieldError::getField, mapping);
 
-        var fieldError = FieldErrorDto.builder();
+        var fieldError = FieldErrorResponseDto.builder();
 
         return fieldErrors.stream().collect(grouping)
                 .entrySet()

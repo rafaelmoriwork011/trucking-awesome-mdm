@@ -15,5 +15,5 @@ public class ErrorResponseDto {
     private List<String> messages;
 
     @JsonInclude(JsonInclude.Include.NON_EMPTY)
-    private List<FieldErrorDto> fieldErrors;
+    private List<FieldErrorResponseDto> fieldErrors;
 }
